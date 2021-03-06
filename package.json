@@ -1,0 +1,18 @@
+{
+  "name": "rest-api",
+  "version": "1.0.0",
+  "description": "API REST com persistência de dados para uma aplicação.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "rest"
+  ],
+  "author": "Lucas R",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
