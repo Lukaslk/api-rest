@@ -3,13 +3,13 @@ const app = express();
 const bodyParser = require('body-parser');
 
 const rotaProdutos = require('./routes/produtos');
-const rotaPedidos = require('./routes/pedidos');
 
-app.use(bodyParser.json());  //APenas formato json
-app.use(bodyParser.urlencoded({extended: false }));  //apenas dados simples
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false }));
 
 app.use('/produtos', rotaProdutos);
-app.use('/pedidos', rotaPedidos);
+
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allw-Origin', '*') //No lugar do * pode se colocar um servidor específico

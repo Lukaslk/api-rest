@@ -15,11 +15,11 @@ router.get('/', (req, res, next) => {
                     produtos: result.map(prod => {
                         return {
                             id_produto: prod.id_produtos,
-                            nome: prod.nome,
-                            preco: prod.preco,
+                            name: prod.name,
+                            link: prod.link,
+                            description: prod.description,
+                            tags: prod.tags,
                             request: {
-                                tipo: 'GET',
-                                descricao: 'Retorna todos os produtos',
                                 url: 'http://localhost:5000/produtos/' + prod.id_produtos
                             }
                         }
@@ -36,8 +36,8 @@ router.post('/', (req, res, next) => {
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send({error: error}) }
         conn.query(
-            'INSERT INTO produtos (nome, preco) VALUES (?,?)',
-            [req.body.nome, req.body.preco],
+            'INSERT INTO produtos (name, link, description, tags) VALUES (?,?,?,?)',
+            [req.body.name, req.body.link, req.body.description, req.body.tags],
             (error, result, field) => {
                 conn.release();
                 if (error) { return res.status(500).send({error: error}) }
@@ -45,11 +45,11 @@ router.post('/', (req, res, next) => {
                     mensagem: 'Produto inserido com sucesso',
                     produtoCriado: {
                         id_produto: result.id_produtos,
-                        nome: req.body.nome,
-                        preco: req.body.preco,
+                        name: req.body.name,
+                        link: req.body.link,
+                        description: req.body.description,
+                        tags: req.body.tags,
                         request: {
-                            tipo: 'POST',
-                            descricao: 'Insere um produto',
                             url: 'http://localhost:5000/produtos'
                         }
                     }
@@ -66,25 +66,25 @@ router.get('/:id_produtos', (req, res, next) => {
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send({ error: error}) }
         conn.query(
-            'SELECT * FROM produtos WHERE id_produtos = ?;',
+            'SELECT * FROM produtos WHERE tags = ?;',
             [req.params.id_produtos],
             (error, result, fields) => {
                 if(error) {return res.status(500).send({ error: error}) }
                 
                 if(result.length == 0) {
                     return res.status(404).send({
-                        mensagem: 'Não foi encontrado produto com esse ID'
+                        mensagem: 'Não foi encontrado produto com essa tag'
                     })
                 }
 
                 const response = {
                     produto: {
                         id_produto: result[0].id_produtos,
-                        nome: result[0].nome,
-                        preco: result[0].preco,
+                        name: result[0].name,
+                        link: result[0].link,
+                        description: result[0].description,
+                        tags:result[0].tags,
                         request: {
-                            tipo: 'GET',
-                            descricao: 'Retorna os detalhes de um produto especifico',
                             url: 'http://localhost:5000/produtos/' + result[0].id_produtos
                         }
                     }
@@ -101,10 +101,12 @@ router.patch('/', (req, res, next) => {
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send({error: error}) }
         conn.query(
-            `UPDATE produtos SET nome = ?, preco = ? WHERE id_produtos = ?`,
+            `UPDATE produtos SET name = ?, link = ?, description = ?, tags = ?  WHERE id_produtos = ?`,
             [
-                req.body.nome, 
-                req.body.preco,  
+                req.body.name, 
+                req.body.link,
+                req.body.description,
+                req.body.tags,
                 req.body.id_produto
             ],
 
@@ -115,11 +117,11 @@ router.patch('/', (req, res, next) => {
                     mensagem: 'Produto alterado com sucesso',
                     produtoAtualizado: {
                         id_produto: req.body.id_produto,
-                        nome: req.body.nome,
-                        preco: req.body.preco,
+                        name: req.body.name,
+                        link: req.body.link,
+                        description: req.body.description,
+                        tags: req.body.tags,
                         request: {
-                            tipo: 'GET',
-                            descricao: 'Altera um produtos em especifico',
                             url: 'http://localhost:5000/produtos/' + req.body.id_produto
                         }
                     }
@@ -136,7 +138,7 @@ router.delete('/', (req, res, next) => {
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send({error: error}) }
         conn.query(
-            `DELETE FROM produtos WHERE id_produtos = ?`, [req.body.id_produto],
+            `DELETE FROM produtos WHERE tags = ?`, [req.body.id_produto],
 
             (error, resultado, field) => {
                 conn.release();
@@ -144,13 +146,7 @@ router.delete('/', (req, res, next) => {
                 const response = {
                     mensagem: 'Produto removido com sucesso',
                     request: {
-                        tipo: "POST",
-                        descricao: "Insere um produto",
                         url: 'http://localhost:5000/produtos',
-                        body: {
-                            nome: 'String',
-                            preco: 'Number'
-                        }
                     }
                 }
                 return res.status(202).send({ response})
