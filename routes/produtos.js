@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const mysql = require('../mysql').pool;
+const mysql = require('../database/mysql').pool;
 
 router.get('/', (req, res, next) => {
    mysql.getConnection((error, conn) => {
@@ -37,7 +37,7 @@ router.post('/', (req, res, next) => {
             'INSERT INTO produtos (name, link, description, tags) VALUES (?,?,?,?)',
             [req.body.name, req.body.link, req.body.description, req.body.tags],
             (error, result, field) => {
-                conn.release();
+                conn.release(); // para liberar a conecção
                 if (error) { return res.status(500).send({error: error}) }
                 const response = {
                     mensagem: 'Produto inserido com sucesso',
