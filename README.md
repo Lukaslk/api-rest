@@ -15,7 +15,7 @@ com seus respectivos nomes, links de documentação, descrições e tags.
 Um editor de código-fonte(Visual studio code, por exemplo) e uma ferramenta para fazer teste(como o Postman).
 Também é necessário criar uma tabela com os mesmos nomes conforme imagem abaixo:
 
-O database deve se chamar "tecnologia" e a tabela produtos com 5 colunas: "id_produto", "name", "link", "description" e "tags", conforme imagem abaixo:
+O database deve se chamar "tecnologia" e a tabela "produtos", ao qual irá receber 5 colunas: "id_produto", "name", "link", "description" e "tags", conforme imagem abaixo:
 
  ![tecnologia](https://github.com/Lukaslk/api-rest/blob/main/tabela_tecnologias.png) 
 
