@@ -1,7 +1,7 @@
 # Description
 
-Sua tarefa é construir uma API REST com persistência de dados para uma aplicação. A aplicação é um simples repositório para gerenciar as tecnologias de mercado 
-com seus respectivos nomes, links de documentação, descrições e tags.
+Um API REST com persistência de dados para uma aplicação,sendo um simples repositório para gerenciar as cadastros, cada qual  
+com seus respectivos nome, links de documentação, descrições e tags.
 
 # Packages
 
