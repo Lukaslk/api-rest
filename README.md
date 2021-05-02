@@ -22,7 +22,7 @@ O database deve se chamar "tecnologia" e a tabela "produtos", ao qual irá receb
 # Getting Started
 
 1. Faça o download ou clone este repositório;
-2. Abra seu Terminal/Prompt e navegue até o diretório rest;
+2. Abra seu Terminal/Prompt e navegue até o diretório em que foi depositado;
 3. Inicie o server com "node server.js";
 
 Com o servidor funcionando abra o Postman e siga Script de teste para as rotas propostas:
